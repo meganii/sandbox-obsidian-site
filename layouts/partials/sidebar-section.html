@@ -1,0 +1,35 @@
+{{- $node := .Node -}}
+{{- $currentPath := .CurrentPath -}}
+{{- $level := .Level | default 0 -}}
+{{- $nodePath := (urls.Parse $node.RelPermalink).Path -}}
+{{- $isActive := eq $nodePath $currentPath -}}
+{{- if $node.IsSection -}}
+  {{- $childSections := where $node.Pages "IsSection" true -}}
+  {{- $childPages := where $node.RegularPages ".Draft" "ne" true -}}
+  {{- $isOpen := or $isActive (strings.HasPrefix $currentPath $nodePath) -}}
+  {{- $childCount := add (len $childSections) (len $childPages) -}}
+  <li>
+    <details class="group rounded-lg border border-slate-800 bg-slate-900/40" {{ if $isOpen }}open{{ end }}>
+      <summary class="flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-slate-200 hover:text-sapphire-200">
+        <a href="{{ $node.RelPermalink }}" class="flex-1 truncate text-left text-slate-200 hover:text-sapphire-200">{{ $node.LinkTitle | default $node.Title }}</a>
+        {{ if gt $childCount 0 }}
+          <span class="text-xs text-slate-500">{{ $childCount }}</span>
+        {{ end }}
+      </summary>
+      {{ if gt $childCount 0 }}
+        <ul class="space-y-1 border-t border-slate-800 py-2 pl-4">
+          {{ range $childSections.ByWeight }}
+            {{ partial "sidebar-section.html" (dict "Node" . "CurrentPath" $currentPath "Level" (add $level 1)) }}
+          {{ end }}
+          {{ range $childPages.ByWeight }}
+            {{ partial "sidebar-section.html" (dict "Node" . "CurrentPath" $currentPath "Level" (add $level 1)) }}
+          {{ end }}
+        </ul>
+      {{ end }}
+    </details>
+  </li>
+{{- else -}}
+  <li>
+    <a href="{{ $node.RelPermalink }}" class="block rounded-md px-2 py-1.5 text-slate-300 hover:bg-slate-800 hover:text-sapphire-200 {{ if $isActive }}bg-slate-800 text-sapphire-200{{ end }}">{{ $node.LinkTitle | default $node.Title }}</a>
+  </li>
+{{- end -}}
