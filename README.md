@@ -4,8 +4,17 @@ An Obsidian-inspired Hugo starter that ships with a Tailwind CSS pipeline and a 
 
 ## Prerequisites
 
-- [Hugo Extended](https://gohugo.io/installation/) 0.120+.
+- [Hugo Extended](https://gohugo.io/installation/) — install the latest release (see below).
 - [Node.js](https://nodejs.org/) 18 or newer with `npm`.
+
+To install the most recent Hugo Extended binary on Linux you can run the helper script included in this repository:
+
+```bash
+sudo ./scripts/install-hugo.sh
+hugo version
+```
+
+The script downloads the newest release from GitHub and places it at `/usr/local/bin/hugo`.
 
 ## Installation
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ block "title" . }}{{ with .Title }}{{ . }} · {{ end }}{{ site.Title }}{{ end }}</title>
-    {{ $css := resources.Get "css/main.css" | resources.PostCSS (dict "config" "postcss.config.cjs") }}
+    {{ $css := resources.Get "css/main.css" | css.PostCSS (dict "config" "postcss.config.cjs") }}
     {{ if hugo.IsProduction }}
       {{ $css = $css | minify | fingerprint }}
       <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
