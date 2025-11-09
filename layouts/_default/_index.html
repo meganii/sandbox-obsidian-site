@@ -1,0 +1,33 @@
+{{ define "main" }}
+  {{ partial "sidebar.html" . }}
+  <div class="flex flex-col gap-8">
+    {{ partial "topbar.html" . }}
+    <section class="prose prose-invert prose-headings:text-slate-100 prose-strong:text-slate-100 prose-a:text-sapphire-300">
+      {{ .Content }}
+      {{ if .Sections }}
+        <div class="mt-8 space-y-6">
+          {{ range .Sections.ByWeight }}
+            <div class="rounded-2xl border border-slate-800/60 bg-slate-900/40 p-6">
+              <h2 class="text-xl font-semibold text-slate-100">
+                <a href="{{ .RelPermalink }}" class="hover:text-sapphire-200">{{ .Title }}</a>
+              </h2>
+              {{ with .Params.description }}
+                <p class="mt-2 text-sm text-slate-400">{{ . }}</p>
+              {{ end }}
+              {{ if .Pages }}
+                <ul class="mt-4 space-y-2 text-sm">
+                  {{ range .Pages.ByWeight }}
+                    <li>
+                      <a href="{{ .RelPermalink }}" class="text-slate-300 hover:text-sapphire-200">{{ .LinkTitle }}</a>
+                    </li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+            </div>
+          {{ end }}
+        </div>
+      {{ end }}
+    </section>
+  </div>
+  {{ partial "toc.html" . }}
+{{ end }}

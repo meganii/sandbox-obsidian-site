@@ -1,0 +1,49 @@
+{{ $ctx := . }}
+{{ $currentPath := (urls.Parse $ctx.RelPermalink).Path }}
+<aside class="hidden lg:block">
+  <nav class="sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto pr-3 scrollbar-thin">
+    <h2 class="px-2 text-xs font-semibold uppercase tracking-widest text-slate-500">Navigation</h2>
+    <div class="mt-4 space-y-3 text-sm text-slate-300">
+      {{ with site.Menus.main }}
+        <ul class="space-y-2">
+          {{ range . }}
+            {{ $entryPath := (urls.Parse .URL).Path }}
+            {{ $isOpen := or (eq $entryPath $currentPath) (strings.HasPrefix $currentPath $entryPath) }}
+            <li>
+              {{ if .HasChildren }}
+                <details class="group rounded-lg border border-slate-800 bg-slate-900/40" {{ if $isOpen }}open{{ end }}>
+                  <summary class="flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-slate-200 hover:text-sapphire-200">
+                    <span>{{ .Name }}</span>
+                    <span class="text-xs text-slate-500">{{ len .Children }}</span>
+                  </summary>
+                  <ul class="space-y-1 border-t border-slate-800 py-2 pl-4">
+                    {{ range .Children }}
+                      {{ $childPath := (urls.Parse .URL).Path }}
+                      {{ $active := eq $childPath $currentPath }}
+                      <li>
+                        <a href="{{ .URL | relLangURL }}" class="block rounded-md px-2 py-1.5 text-slate-300 hover:bg-slate-800 hover:text-sapphire-200 {{ if $active }}bg-slate-800 text-sapphire-200{{ end }}">{{ .Name }}</a>
+                      </li>
+                    {{ end }}
+                  </ul>
+                </details>
+              {{ else }}
+                <a href="{{ .URL | relLangURL }}" class="block rounded-lg border border-transparent px-3 py-2 font-medium hover:border-sapphire-500/60 hover:bg-slate-900/40 hover:text-sapphire-200 {{ if $isOpen }}border-sapphire-500/40 bg-slate-900/60 text-sapphire-200{{ end }}">{{ .Name }}</a>
+              {{ end }}
+            </li>
+          {{ end }}
+        </ul>
+      {{ else }}
+        {{ $sections := site.Sections }}
+        {{ if gt (len $sections) 0 }}
+          <ul class="space-y-2">
+            {{ range $sections.ByWeight }}
+              {{ partial "sidebar-section.html" (dict "Node" . "CurrentPath" $currentPath "Level" 0) }}
+            {{ end }}
+          </ul>
+        {{ else }}
+          <p class="px-2 text-sm text-slate-500">Add pages to the <code>main</code> menu to populate this navigation.</p>
+        {{ end }}
+      {{ end }}
+    </div>
+  </nav>
+</aside>

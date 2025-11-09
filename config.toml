@@ -1,0 +1,22 @@
+baseURL = "https://example.com/"
+languageCode = "en-us"
+title = "Sandbox Obsidian Site"
+
+timezone = "UTC"
+
+disableKinds = ["taxonomy", "term"]
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+    ordered = false
+
+[menu]
+  [[menu.main]]
+    name = "Documentation"
+    identifier = "docs"
+    url = "/docs/"
+    weight = 10
