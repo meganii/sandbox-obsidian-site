@@ -1,12 +1,12 @@
 <aside class="hidden xl:block">
   <div class="sticky top-20 h-[calc(100vh-5rem)] overflow-y-auto pr-1 scrollbar-thin">
-    <h2 class="px-2 text-xs font-semibold uppercase tracking-widest text-slate-500">On this page</h2>
+    <h2 class="px-2 text-xs font-semibold uppercase tracking-widest text-neutral-500">On this page</h2>
     {{ if .TableOfContents }}
-      <div class="toc prose prose-invert mt-4 text-sm text-slate-300">
+      <div class="toc prose mt-4 text-sm text-neutral-600">
         {{ .TableOfContents | safeHTML }}
       </div>
     {{ else }}
-      <p class="mt-4 px-2 text-sm text-slate-500">Add headings (H2-H3) to populate the table of contents.</p>
+      <p class="mt-4 px-2 text-sm text-neutral-500">Add headings (H2-H3) to populate the table of contents.</p>
     {{ end }}
   </div>
 </aside>
