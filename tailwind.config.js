@@ -41,7 +41,7 @@ module.exports = {
         sans: ['"Inter"', 'system-ui', 'sans-serif']
       },
       boxShadow: {
-        floating: '0 20px 45px -20px rgba(15, 23, 42, 0.65)'
+        floating: '0 20px 45px -20px rgba(15, 23, 42, 0.25)'
       }
     }
   },

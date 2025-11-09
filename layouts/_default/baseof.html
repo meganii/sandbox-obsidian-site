@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ or site.Language.Lang "en" }}" class="bg-slate-950">
+<html lang="{{ or site.Language.Lang "en" }}" class="bg-white">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,15 +13,15 @@
     {{ end }}
     {{ block "head" . }}{{ end }}
   </head>
-  <body class="min-h-screen bg-obsidian-gradient text-slate-100">
-    <header class="fixed inset-x-0 top-0 z-40 border-b border-slate-800 bg-slate-900/80 backdrop-blur">
+  <body class="min-h-screen bg-white text-neutral-900">
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
-        <a href="{{ "/" | relLangURL }}" class="flex items-center gap-3 text-lg font-semibold text-sapphire-200 hover:text-sapphire-100">
-          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sapphire-500/20 text-sapphire-300 shadow-floating">SB</span>
+        <a href="{{ "/" | relLangURL }}" class="flex items-center gap-3 text-lg font-semibold text-neutral-900 hover:text-neutral-600">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 shadow-floating">SB</span>
           <span>{{ site.Title }}</span>
         </a>
-        <div class="hidden items-center gap-3 text-sm text-slate-400 sm:flex">
-          <span class="rounded-full border border-slate-800 px-3 py-1">⌘K</span>
+        <div class="hidden items-center gap-3 text-sm text-neutral-500 sm:flex">
+          <span class="rounded-full border border-neutral-300 px-3 py-1">⌘K</span>
           <span>Search (coming soon)</span>
         </div>
       </div>

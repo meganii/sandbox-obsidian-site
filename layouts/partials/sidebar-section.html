@@ -9,15 +9,15 @@
   {{- $isOpen := or $isActive (strings.HasPrefix $currentPath $nodePath) -}}
   {{- $childCount := add (len $childSections) (len $childPages) -}}
   <li>
-    <details class="group rounded-lg border border-slate-800 bg-slate-900/40" {{ if $isOpen }}open{{ end }}>
-      <summary class="flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-slate-200 hover:text-sapphire-200">
-        <a href="{{ $node.RelPermalink }}" class="flex-1 truncate text-left text-slate-200 hover:text-sapphire-200">{{ $node.LinkTitle | default $node.Title }}</a>
+    <details class="group rounded-lg border border-neutral-200 bg-neutral-50" {{ if $isOpen }}open{{ end }}>
+      <summary class="flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-neutral-800 hover:text-neutral-600">
+        <a href="{{ $node.RelPermalink }}" class="flex-1 truncate text-left text-neutral-800 hover:text-neutral-600">{{ $node.LinkTitle | default $node.Title }}</a>
         {{ if gt $childCount 0 }}
-          <span class="text-xs text-slate-500">{{ $childCount }}</span>
+          <span class="text-xs text-neutral-400">{{ $childCount }}</span>
         {{ end }}
       </summary>
       {{ if gt $childCount 0 }}
-        <ul class="space-y-1 border-t border-slate-800 py-2 pl-4">
+        <ul class="space-y-1 border-t border-neutral-200 py-2 pl-4">
           {{ range $childSections.ByWeight }}
             {{ partial "sidebar-section.html" (dict "Node" . "CurrentPath" $currentPath "Level" (add $level 1)) }}
           {{ end }}
@@ -30,6 +30,6 @@
   </li>
 {{- else -}}
   <li>
-    <a href="{{ $node.RelPermalink }}" class="block rounded-md px-2 py-1.5 text-slate-300 hover:bg-slate-800 hover:text-sapphire-200 {{ if $isActive }}bg-slate-800 text-sapphire-200{{ end }}">{{ $node.LinkTitle | default $node.Title }}</a>
+    <a href="{{ $node.RelPermalink }}" class="block rounded-md px-2 py-1.5 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 {{ if $isActive }}bg-neutral-100 text-neutral-900 font-semibold{{ end }}">{{ $node.LinkTitle | default $node.Title }}</a>
   </li>
 {{- end -}}

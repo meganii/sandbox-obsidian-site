@@ -8,15 +8,15 @@
   }
 
   body {
-    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+    @apply bg-white text-neutral-900 font-sans antialiased;
   }
 
   a {
-    @apply text-sapphire-300 transition-colors duration-150;
+    @apply text-neutral-700 transition-colors duration-150;
   }
 
   a:hover {
-    @apply text-sapphire-200;
+    @apply text-neutral-900;
   }
 }
 
@@ -27,11 +27,11 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {
-    background: rgba(15, 23, 42, 0.6);
+    background: rgba(226, 232, 240, 0.8);
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: rgba(79, 70, 229, 0.6);
+    background: rgba(148, 163, 184, 0.6);
     border-radius: 9999px;
   }
 
@@ -40,36 +40,34 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgba(56, 189, 248, 0.7);
+    background: rgba(100, 116, 139, 0.7);
   }
 
   .link-underline {
     text-decoration: underline;
-    text-decoration-color: rgba(56, 189, 248, 0.5);
+    text-decoration-color: rgba(148, 163, 184, 0.6);
     text-decoration-thickness: 2px;
   }
 
   .bg-obsidian-gradient {
-    background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.2), transparent 60%),
-      radial-gradient(circle at bottom right, rgba(14, 116, 144, 0.2), transparent 65%),
-      linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+    background: #fff;
   }
 }
 
 @layer components {
   .toc a {
-    @apply text-slate-300 hover:text-sapphire-200;
+    @apply text-neutral-600 hover:text-neutral-900;
   }
 
   .toc ul {
-    @apply space-y-2 border-l border-slate-800 pl-4;
+    @apply space-y-2 border-l border-neutral-200 pl-4;
   }
 
   .toc li {
-    @apply text-sm text-slate-400;
+    @apply text-sm text-neutral-500;
   }
 
   .toc li.active > a {
-    @apply text-sapphire-200;
+    @apply text-neutral-900;
   }
 }
