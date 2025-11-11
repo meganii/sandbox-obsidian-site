@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ block "title" . }}{{ with .Title }}{{ . }} · {{ end }}{{ site.Title }}{{ end }}</title>
-    {{ $css := resources.Get "css/main.css" | css.PostCSS (dict "config" "postcss.config.cjs") }}
+    {{ $css := resources.Get "css/main.css" }}
     {{ if hugo.IsProduction }}
       {{ $css = $css | minify | fingerprint }}
       <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
@@ -15,22 +15,148 @@
   </head>
   <body class="min-h-screen bg-white text-neutral-900">
     <header class="fixed inset-x-0 top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-8 py-4">
-        <a href="{{ "/" | relLangURL }}" class="flex items-center gap-3 text-lg font-semibold text-neutral-900 hover:text-neutral-600">
-          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 shadow-floating">SB</span>
-          <span>{{ site.Title }}</span>
-        </a>
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+        <div class="flex items-center gap-4">
+          <button type="button" id="mobile-menu-open" class="inline-flex items-center justify-center rounded-md border border-neutral-200 p-2 text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 lg:hidden" aria-controls="mobile-nav" aria-expanded="false">
+            <span class="sr-only">Open navigation</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <a href="{{ "/" | relLangURL }}" class="flex items-center gap-3 text-lg font-semibold text-neutral-900 hover:text-neutral-600">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 shadow-floating">SB</span>
+            <span>{{ site.Title }}</span>
+          </a>
+        </div>
         <div class="hidden items-center gap-3 text-sm text-neutral-500 sm:flex">
           <span class="rounded-full border border-neutral-300 px-3 py-1">⌘K</span>
           <span>Search (coming soon)</span>
         </div>
       </div>
     </header>
+    <div id="mobile-nav" class="fixed inset-0 z-50 hidden lg:hidden" role="dialog" aria-modal="true" aria-labelledby="mobile-nav-heading" aria-hidden="true" tabindex="-1">
+      <div class="absolute inset-0 bg-neutral-900/40" data-mobile-nav-overlay></div>
+      <div class="absolute inset-y-0 left-0 flex h-full w-72 max-w-full flex-col gap-6 bg-white px-6 pb-8 pt-6 shadow-xl">
+        <div class="flex items-center justify-between">
+          <h2 id="mobile-nav-heading" class="text-base font-semibold text-neutral-900">{{ site.Title }}</h2>
+          <button type="button" id="mobile-menu-close" class="inline-flex items-center justify-center rounded-md border border-neutral-200 p-2 text-neutral-500 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400">
+            <span class="sr-only">Close navigation</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" />
+            </svg>
+          </button>
+        </div>
+        {{ $ctx := . }}
+        {{ $currentPath := (urls.Parse $ctx.RelPermalink).Path }}
+        <div class="flex-1 overflow-y-auto pr-2">
+          <nav>
+            {{ partial "sidebar-menu.html" (dict "Context" $ctx "CurrentPath" $currentPath) }}
+          </nav>
+        </div>
+      </div>
+    </div>
     <div class="min-h-screen pt-24">
       <main class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 pb-16 lg:grid-cols-[18rem,minmax(0,1fr),18rem] lg:px-8">
         {{ block "main" . }}{{ end }}
       </main>
     </div>
     {{ block "footer" . }}{{ end }}
+    <script>
+      (function () {
+        const mobileNav = document.getElementById('mobile-nav');
+        const openButton = document.getElementById('mobile-menu-open');
+        const closeButton = document.getElementById('mobile-menu-close');
+        const overlay = mobileNav ? mobileNav.querySelector('[data-mobile-nav-overlay]') : null;
+        const focusableSelectors = [
+          'a[href]',
+          'button:not([disabled])',
+          'input:not([disabled]):not([type="hidden"])',
+          'select:not([disabled])',
+          'textarea:not([disabled])',
+          '[tabindex]:not([tabindex="-1"])'
+        ].join(',');
+
+        if (!mobileNav || !openButton || !closeButton || !overlay) {
+          return;
+        }
+
+        let previouslyFocusedElement = null;
+
+        const getFocusableElements = () => mobileNav.querySelectorAll(focusableSelectors);
+
+        const updateState = (open) => {
+          const isOpen = !mobileNav.classList.contains('hidden');
+          if (open === isOpen) {
+            return;
+          }
+
+          mobileNav.classList.toggle('hidden', !open);
+          mobileNav.setAttribute('aria-hidden', open ? 'false' : 'true');
+          openButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+          document.body.classList.toggle('overflow-hidden', open);
+
+          if (open) {
+            previouslyFocusedElement = document.activeElement;
+            const focusables = getFocusableElements();
+            const target = focusables.length ? focusables[0] : closeButton;
+            target.focus({ preventScroll: true });
+          } else {
+            const target = previouslyFocusedElement && document.contains(previouslyFocusedElement)
+              ? previouslyFocusedElement
+              : openButton;
+            target.focus({ preventScroll: true });
+            previouslyFocusedElement = null;
+          }
+        };
+
+        const handleEscape = (event) => {
+          const isOpen = !mobileNav.classList.contains('hidden');
+          if (event.key === 'Escape' && isOpen) {
+            updateState(false);
+          }
+        };
+
+        const handleTabTrap = (event) => {
+          if (event.key !== 'Tab') {
+            return;
+          }
+
+          if (mobileNav.classList.contains('hidden')) {
+            return;
+          }
+
+          const focusables = getFocusableElements();
+          if (!focusables.length) {
+            event.preventDefault();
+            closeButton.focus({ preventScroll: true });
+            return;
+          }
+
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          const active = document.activeElement;
+
+          if (event.shiftKey && active === first) {
+            event.preventDefault();
+            last.focus({ preventScroll: true });
+          } else if (!event.shiftKey && active === last) {
+            event.preventDefault();
+            first.focus({ preventScroll: true });
+          }
+        };
+
+        openButton.addEventListener('click', () => updateState(true));
+        closeButton.addEventListener('click', () => updateState(false));
+        overlay.addEventListener('click', () => updateState(false));
+        document.addEventListener('keydown', handleEscape);
+        mobileNav.addEventListener('keydown', handleTabTrap);
+        mobileNav.addEventListener('click', (event) => {
+          const target = event.target instanceof HTMLElement ? event.target.closest('a[href]') : null;
+          if (target) {
+            updateState(false);
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
