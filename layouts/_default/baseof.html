@@ -4,20 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ block "title" . }}{{ with .Title }}{{ . }} · {{ end }}{{ site.Title }}{{ end }}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    {{ $css := resources.Get "css/main.css" }}
-    {{ if hugo.IsProduction }}
-      {{ $css = $css | minify | fingerprint }}
-      <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" />
-    {{ else }}
-      <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+    {{ with (templates.Defer (dict "key" "global")) }}
+      {{ partial "css.html" . }}
     {{ end }}
-    {{ block "head" . }}{{ end }}
+      {{ block "head" . }}{{ end }}
   </head>
   <body class="min-h-screen bg-white text-neutral-900">
     <header class="fixed inset-x-0 top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur">
@@ -71,7 +61,7 @@
       </div>
     </div>
     <div class="min-h-screen pt-24">
-      <main class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 pb-16 lg:grid-cols-[18rem,minmax(0,1fr),18rem] lg:px-8">
+      <main class="mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 pb-16 lg:grid-cols-[18rem_minmax(0,1fr)_18rem] lg:px-8">
         {{ block "main" . }}{{ end }}
       </main>
     </div>
