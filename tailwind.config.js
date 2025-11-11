@@ -1,5 +1,3 @@
-const colors = require('tailwindcss/colors');
-
 module.exports = {
   content: [
     './layouts/**/*.html',
@@ -38,11 +36,53 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['"Inter"', 'system-ui', 'sans-serif']
+        sans: ['"Noto Sans JP"', '"Hiragino Kaku Gothic ProN"', '"Yu Gothic"', 'Meiryo', 'sans-serif']
       },
       boxShadow: {
         floating: '0 20px 45px -20px rgba(15, 23, 42, 0.25)'
-      }
+      },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: '72ch',
+            color: theme('colors.neutral.700'),
+            lineHeight: '1.9',
+            a: {
+              color: theme('colors.sapphire.600'),
+              fontWeight: '500',
+              textDecoration: 'none',
+              transition: 'color 150ms ease-in-out',
+              '&:hover': {
+                color: theme('colors.sapphire.700'),
+                textDecoration: 'underline'
+              }
+            },
+            'h1, h2, h3, h4': {
+              color: theme('colors.neutral.900'),
+              letterSpacing: '0.02em',
+              fontWeight: '600'
+            },
+            'p, li': {
+              letterSpacing: '0.01em',
+              color: theme('colors.neutral.700')
+            },
+            strong: {
+              color: theme('colors.neutral.900')
+            },
+            blockquote: {
+              borderLeftColor: theme('colors.sapphire.200'),
+              color: theme('colors.neutral.700')
+            },
+            code: {
+              backgroundColor: theme('colors.neutral.100'),
+              color: theme('colors.sapphire.700'),
+              padding: '0.15em 0.35em',
+              borderRadius: '0.35rem',
+              fontWeight: '500'
+            }
+          }
+        }
+      })
     }
   },
   plugins: [

@@ -1,16 +1,16 @@
 ---
-title: "Welcome to the Vault"
-description: "An Obsidian-inspired knowledge base powered by Hugo."
+title: "ナレッジベースへようこそ"
+description: "Hugo と Tailwind CSS で構築した日本語向けのドキュメントサイトです。"
 ---
 
-## Explore the knowledge base
+## 情報を素早く整理する
 
-This starter demonstrates how to structure documentation with a familiar three-column layout. Use the sidebar to explore sections, read guides in the center pane, and follow along with the table of contents on the right.
+このスターターは、左にセクションメニュー、中央に本文、右に目次を備えた三分割レイアウトで、知識を日本語で快適に閲覧できるよう最適化されています。フォントや行間は長文でも読みやすいよう調整され、カード型のリンクから関連ドキュメントへすぐに移動できます。
 
-### Getting around
+### 使い方のヒント
 
-- **Docs** host conceptual material and reference pages.
-- **Guides** dive into workflows with practical examples.
-- The **search** box is ready for wiring into your preferred search solution.
+- **サイドバー**ではドキュメントの全体像を俯瞰しながら必要なページへジャンプできます。
+- **本文エリア**は日本語の段落が読みやすい行間と文字間隔に整えられています。
+- 右側の**目次**で現在の見出し位置を確認しながらページを読み進められます。
 
-Continue to the documentation section to explore the example content.
+まずはドキュメントセクションを開いて、実際のコンテンツ構成例を確認してみてください。

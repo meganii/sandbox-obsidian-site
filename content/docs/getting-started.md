@@ -1,6 +1,6 @@
 ---
-title: "Getting Started"
-description: "Set up your environment and preview the Obsidian-inspired layout."
+title: "スタートガイド"
+description: "ローカル環境をセットアップし、日本語向けレイアウトを確認しましょう。"
 weight: 10
 menu:
   main:
@@ -9,31 +9,31 @@ menu:
     weight: 10
 ---
 
-## Prerequisites
+## 必要なツール
 
-Before you begin, make sure you have the following tools installed:
+作業を始める前に、以下のツールをインストールしておきましょう。
 
-- [Hugo Extended](https://gohugo.io/installation/) for building the site.
-- [Node.js](https://nodejs.org/) 18+ for compiling Tailwind CSS assets.
-- A terminal with access to `npm` commands.
+- サイトをビルドするための [Hugo Extended](https://gohugo.io/installation/)
+- Tailwind CSS アセットをコンパイルするための [Node.js](https://nodejs.org/) 18 以上
+- `npm` コマンドを実行できるターミナル
 
-### Installation steps
+### セットアップ手順
 
-1. Install the Node dependencies:
+1. 依存関係をインストールします。
    ```bash
    npm install
    ```
-2. Run Tailwind in watch mode to regenerate CSS as you edit styles:
+2. スタイルを自動生成する Tailwind のウォッチャーを起動します。
    ```bash
    npm run dev
    ```
-3. Start the Hugo development server in another terminal:
+3. 別のターミナルで Hugo の開発サーバーを起動します。
    ```bash
    hugo server
    ```
 
-Both commands can run concurrently so changes to content or styles appear instantly.
+両方のコマンドを並行して実行することで、コンテンツやスタイルの変更を即座に反映できます。
 
-### Next steps
+### 次のステップ
 
-Continue with the content architecture guide to learn how navigation and sections are wired together.
+左サイドバーのメニュー設定を調整しながら、実際のドキュメント構造を自分のワークフローに合わせてカスタマイズしてみてください。

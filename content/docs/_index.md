@@ -1,7 +1,7 @@
 ---
-title: "Documentation Overview"
-linkTitle: "Documentation"
-description: "High-level concepts that explain how this vault is organized."
+title: "ドキュメントの概要"
+linkTitle: "ドキュメント"
+description: "サイト全体の構成方針やカスタマイズの考え方をまとめています。"
 weight: 1
 menu:
   main:
@@ -10,14 +10,14 @@ menu:
     weight: 5
 ---
 
-## Start here
+## はじめに
 
-Welcome to the documentation vault. This section introduces the layout, customization options, and project conventions used throughout the site.
+このドキュメントセクションでは、ナレッジベースを日本語で運用するための基本設計と、レイアウトを拡張する際のポイントを紹介します。
 
-### What you'll find
+### 収録内容
 
-1. **Getting Started** — outlines prerequisites and how to spin up the local environment.
-2. **Content Architecture** — explains how sections, menus, and front matter work together.
-3. **Styling** — highlights the Tailwind pipeline and reusable utility classes.
+1. **スタートガイド** — 必要なツールの準備とローカル環境の立ち上げ手順。
+2. **コンテンツ構造** — セクション・メニュー・フロントマターの連携方法。
+3. **スタイル調整** — Tailwind CSS とテーマユーティリティの活用方法。
 
-Jump into the guides section when you're ready for practical workflows.
+準備が整ったら、実践的なワークフローを学べるガイドに進みましょう。

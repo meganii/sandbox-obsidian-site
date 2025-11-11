@@ -1,9 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ or site.Language.Lang "en" }}" class="bg-white">
+<html lang="{{ site.Language.Lang | default "ja" }}" class="bg-white">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ block "title" . }}{{ with .Title }}{{ . }} · {{ end }}{{ site.Title }}{{ end }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     {{ $css := resources.Get "css/main.css" }}
     {{ if hugo.IsProduction }}
       {{ $css = $css | minify | fingerprint }}
@@ -17,20 +23,25 @@
     <header class="fixed inset-x-0 top-0 z-40 border-b border-neutral-200 bg-white/90 backdrop-blur">
       <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <div class="flex items-center gap-4">
-          <button type="button" id="mobile-menu-open" class="inline-flex items-center justify-center rounded-md border border-neutral-200 p-2 text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 lg:hidden" aria-controls="mobile-nav" aria-expanded="false">
-            <span class="sr-only">Open navigation</span>
+          <button
+            type="button"
+            id="mobile-menu-open"
+            class="inline-flex items-center justify-center rounded-md border border-neutral-200 p-2 text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400 lg:hidden"
+            aria-controls="mobile-nav"
+            aria-expanded="false"
+          >
+            <span class="sr-only">ナビゲーションを開く</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <a href="{{ "/" | relLangURL }}" class="flex items-center gap-3 text-lg font-semibold text-neutral-900 hover:text-neutral-600">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 text-neutral-600 shadow-floating">SB</span>
-            <span>{{ site.Title }}</span>
+          <a href="{{ "/" | relLangURL }}" class="text-lg font-semibold text-neutral-900 hover:text-neutral-600">
+            {{ site.Title }}
           </a>
         </div>
         <div class="hidden items-center gap-3 text-sm text-neutral-500 sm:flex">
           <span class="rounded-full border border-neutral-300 px-3 py-1">⌘K</span>
-          <span>Search (coming soon)</span>
+          <span>検索（近日公開）</span>
         </div>
       </div>
     </header>
@@ -39,8 +50,12 @@
       <div class="absolute inset-y-0 left-0 flex h-full w-72 max-w-full flex-col gap-6 bg-white px-6 pb-8 pt-6 shadow-xl">
         <div class="flex items-center justify-between">
           <h2 id="mobile-nav-heading" class="text-base font-semibold text-neutral-900">{{ site.Title }}</h2>
-          <button type="button" id="mobile-menu-close" class="inline-flex items-center justify-center rounded-md border border-neutral-200 p-2 text-neutral-500 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400">
-            <span class="sr-only">Close navigation</span>
+          <button
+            type="button"
+            id="mobile-menu-close"
+            class="inline-flex items-center justify-center rounded-md border border-neutral-200 p-2 text-neutral-500 transition hover:border-neutral-300 hover:text-neutral-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-400"
+          >
+            <span class="sr-only">ナビゲーションを閉じる</span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6l-12 12" />
             </svg>
@@ -50,7 +65,7 @@
         {{ $currentPath := (urls.Parse $ctx.RelPermalink).Path }}
         <div class="flex-1 overflow-y-auto pr-2">
           <nav>
-            {{ partial "sidebar-menu.html" (dict "Context" $ctx "CurrentPath" $currentPath) }}
+            {{ partial "sidebar-menu.html" (dict "Context" $ctx "CurrentPath" $currentPath "HeadingClass" "sr-only" "WrapperClass" "space-y-3 text-sm text-neutral-600" "ListClass" "space-y-2") }}
           </nav>
         </div>
       </div>
