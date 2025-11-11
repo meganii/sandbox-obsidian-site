@@ -2,18 +2,18 @@
   {{ partial "sidebar.html" . }}
   <div class="flex flex-col gap-8">
     {{ partial "topbar.html" . }}
-    <article class="prose prose-headings:text-neutral-900 prose-strong:text-neutral-900 prose-a:text-neutral-700">
+    <article class="prose prose-lg prose-headings:text-neutral-900 prose-strong:text-neutral-900 prose-a:text-sapphire-600">
       {{ .Content }}
       {{ if .Pages }}
-        <ul class="mt-6 grid gap-4 lg:grid-cols-2">
+        <ul class="mt-8 grid gap-4 lg:grid-cols-2">
           {{ range .Pages.ByWeight }}
-            <li class="rounded-xl border border-neutral-200 bg-white p-4 transition hover:border-neutral-400 hover:bg-neutral-50">
+            <li class="rounded-2xl border border-neutral-200 bg-white/90 p-5 transition hover:border-sapphire-200 hover:bg-white hover:shadow-md">
               <a href="{{ .RelPermalink }}" class="block">
                 <h2 class="text-lg font-semibold text-neutral-900">{{ .LinkTitle }}</h2>
                 {{ with .Params.description }}
                   <p class="mt-2 text-sm text-neutral-600">{{ . }}</p>
                 {{ else }}
-                  <p class="mt-2 text-sm text-neutral-500">Read more →</p>
+                  <p class="mt-2 text-sm text-neutral-500">続きを読む →</p>
                 {{ end }}
               </a>
             </li>

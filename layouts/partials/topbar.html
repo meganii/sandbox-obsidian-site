@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-6">
   <header class="flex flex-col gap-4 border-b border-neutral-200 pb-6">
     <nav class="flex flex-wrap items-center gap-2 text-sm text-neutral-500">
-      <a href="{{ "/" | relLangURL }}" class="hover:text-neutral-700">Home</a>
+      <a href="{{ "/" | relLangURL }}" class="hover:text-neutral-700">ホーム</a>
       {{ range $index, $ancestor := .Ancestors.Reverse }}
         <span class="text-neutral-300">/</span>
         <a href="{{ $ancestor.RelPermalink }}" class="hover:text-neutral-700">{{ $ancestor.LinkTitle }}</a>
@@ -19,8 +19,13 @@
         {{ end }}
       </div>
       <form role="search" class="relative hidden w-full max-w-md sm:block sm:max-w-xs">
-        <label for="topbar-search" class="sr-only">Search</label>
-        <input id="topbar-search" type="search" placeholder="Search the vault" class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 focus:outline-none focus:ring-2 focus:ring-neutral-200" />
+        <label for="topbar-search" class="sr-only">サイト内検索</label>
+        <input
+          id="topbar-search"
+          type="search"
+          placeholder="キーワードで検索"
+          class="w-full rounded-lg border border-neutral-300 bg-white/90 px-4 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 focus:border-sapphire-400 focus:outline-none focus:ring-2 focus:ring-sapphire-100"
+        />
         <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-neutral-400">⌘K</span>
       </form>
     </div>

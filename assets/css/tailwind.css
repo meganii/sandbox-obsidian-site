@@ -5,10 +5,14 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-feature-settings: "palt";
   }
 
   body {
     @apply bg-white text-neutral-900 font-sans antialiased;
+    background-image: none;
+    letter-spacing: 0.01em;
+    line-height: 1.8;
   }
 
   a {
@@ -17,6 +21,15 @@
 
   a:hover {
     @apply text-neutral-900;
+  }
+
+  :lang(ja) h1,
+  :lang(ja) h2,
+  :lang(ja) h3,
+  :lang(ja) h4,
+  :lang(ja) h5,
+  :lang(ja) h6 {
+    letter-spacing: 0.02em;
   }
 }
 
@@ -50,7 +63,7 @@
   }
 
   .bg-obsidian-gradient {
-    background: #fff;
+    background: linear-gradient(160deg, rgba(237, 241, 247, 0.9), rgba(207, 216, 232, 0.6));
   }
 }
 

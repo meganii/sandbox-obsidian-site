@@ -1,10 +1,10 @@
 {{ $ctx := .Context }}
 {{ $currentPath := .CurrentPath }}
-{{ $headingClass := or .HeadingClass "px-2 text-xs font-semibold uppercase tracking-widest text-neutral-500" }}
+{{ $headingClass := or .HeadingClass "px-2 text-xs font-medium text-neutral-500" }}
 {{ $wrapperClass := or .WrapperClass "mt-4 space-y-3 text-sm text-neutral-600" }}
 {{ $listClass := or .ListClass "space-y-2" }}
 
-<h2 class="{{ $headingClass }}">Navigation</h2>
+<h2 class="{{ $headingClass }}">ナビゲーション</h2>
 <div class="{{ $wrapperClass }}">
   {{ with site.Menus.main }}
     <ul class="{{ $listClass }}">
@@ -13,23 +13,23 @@
         {{ $isOpen := or (eq $entryPath $currentPath) (strings.HasPrefix $currentPath $entryPath) }}
         <li>
           {{ if .HasChildren }}
-            <details class="group rounded-lg border border-neutral-200 bg-neutral-50" {{ if $isOpen }}open{{ end }}>
-              <summary class="flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-neutral-800 hover:text-neutral-600">
+            <details class="group overflow-hidden rounded-xl border border-neutral-200 bg-white/80" {{ if $isOpen }}open{{ end }}>
+              <summary class="flex cursor-pointer items-center justify-between gap-2 px-3 py-2 text-neutral-800 transition hover:text-neutral-600">
                 <span>{{ .Name }}</span>
-                <span class="text-xs text-neutral-400">{{ len .Children }}</span>
+                <span class="text-xs text-neutral-400">{{ len .Children }}件</span>
               </summary>
-              <ul class="space-y-1 border-t border-neutral-200 py-2 pl-4">
+              <ul class="space-y-1 border-t border-neutral-200 bg-white/70 py-2 pl-4">
                 {{ range .Children }}
                   {{ $childPath := (urls.Parse .URL).Path }}
                   {{ $active := eq $childPath $currentPath }}
                   <li>
-                    <a href="{{ .URL | relLangURL }}" class="block rounded-md px-2 py-1.5 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 {{ if $active }}bg-neutral-100 text-neutral-900 font-semibold{{ end }}">{{ .Name }}</a>
+                    <a href="{{ .URL | relLangURL }}" class="block rounded-md px-2 py-1.5 text-neutral-600 transition hover:bg-sapphire-50 hover:text-sapphire-700 {{ if $active }}bg-sapphire-100 text-sapphire-800 font-semibold{{ end }}">{{ .Name }}</a>
                   </li>
                 {{ end }}
               </ul>
             </details>
           {{ else }}
-            <a href="{{ .URL | relLangURL }}" class="block rounded-lg border border-transparent px-3 py-2 font-medium hover:border-neutral-400 hover:bg-neutral-100 hover:text-neutral-900 {{ if $isOpen }}border-neutral-400 bg-neutral-100 text-neutral-900 font-semibold{{ end }}">{{ .Name }}</a>
+            <a href="{{ .URL | relLangURL }}" class="block rounded-xl border border-transparent px-3 py-2 font-medium text-neutral-700 transition hover:border-sapphire-200 hover:bg-sapphire-50 hover:text-sapphire-700 {{ if $isOpen }}border-sapphire-300 bg-sapphire-50 text-sapphire-800 font-semibold{{ end }}">{{ .Name }}</a>
           {{ end }}
         </li>
       {{ end }}
@@ -43,7 +43,7 @@
         {{ end }}
       </ul>
     {{ else }}
-      <p class="px-2 text-sm text-neutral-500">Add pages to the <code>main</code> menu to populate this navigation.</p>
+      <p class="px-2 text-sm text-neutral-500">`main` メニューにページを追加するとナビゲーションが表示されます。</p>
     {{ end }}
   {{ end }}
 </div>
