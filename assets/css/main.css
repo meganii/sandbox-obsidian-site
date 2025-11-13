@@ -72,6 +72,22 @@
 }
 
 @layer components {
+  .prose :where(h1) {
+    @apply text-4xl font-semibold text-neutral-900 md:text-5xl border-b border-neutral-200 pb-4 mb-10;
+  }
+
+  .prose :where(h2) {
+    @apply mt-12 mb-6 text-3xl font-semibold text-neutral-900 border-l-4 border-neutral-300 pl-4;
+  }
+
+  .prose :where(h3) {
+    @apply mt-8 mb-4 text-2xl font-semibold text-neutral-800;
+  }
+
+  .prose :where(h4) {
+    @apply mt-6 mb-3 text-xl font-semibold text-neutral-700 tracking-wide;
+  }
+
   .toc a {
     @apply text-neutral-600 hover:text-neutral-900;
   }
